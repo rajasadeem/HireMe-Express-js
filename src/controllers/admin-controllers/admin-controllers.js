@@ -10,7 +10,7 @@ const adminLoginhandler=(req,res)=>{
         if(result.rows.length>0){
             const user = result.rows
             const [userData] = user;
-            // console.log(userData);
+            //console.log(userData);
             const accessToken = (jwt.sign(userData,process.env.Access_web_token))
             res.status(200).json({accessToken,user})
         }
