@@ -1,6 +1,6 @@
 const express = require('express')
 const employeeRoutes = express.Router()
-const { getEmployeeNotifications, createEmployeeNotification, createComplaint, getServiceCategory, getSubCategory, addEmpServices, getEmpServices, getEmpFeedback, getEmpSettings, updateEmpSettings,empLogin,completedServices} = require('../../controllers/employee-controllers/index')
+const { getEmployeeNotifications, createEmployeeNotification, createComplaint, getServiceCategory, getSubCategory, addEmpServices, getEmpServices, getEmpFeedback, getEmpSettings, updateEmpSettings,empLogin,completedServices} = require('../../controllers/employee-controllers/employee-controller')
 
 const auth = require('../../middlewares/auth/auth')
 

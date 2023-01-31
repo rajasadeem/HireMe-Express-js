@@ -98,10 +98,10 @@ const updateEmpSettings = (req,res)=>{
 
 const completedServices = (req,res)=>{
     const { emp_id } = req.user
-    pool.query(`SELECT emp_name,service_category_name,sub_category_name FROM emp_customer_services JOIN employee ON emp_customer_services.emp_id = employee.emp_id 
+    pool.query(`SELECT service_category_name,sub_category_name FROM emp_customer_services  
     JOIN service_category ON emp_customer_services.service_category_id = service_category.service_category_id
     JOIN sub_category ON emp_customer_services.sub_category_id = sub_category.sub_category_id
-    WHERE emp_customer_services.emp_id = ${emp_id}`,(error,result)=>{
+    WHERE emp_id = ${emp_id} AND service_status = 'complete'`,(error,result)=>{
         if(error) throw error
         res.status(200).json(result.rows)
     })

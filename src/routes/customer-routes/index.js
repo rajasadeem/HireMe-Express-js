@@ -10,16 +10,18 @@ const {
       getServices,
       getSubCategory,
       profileSetting,
-      customerLogin
+      customerLogin,
+      completedTasks
     } = require("../../controllers/customer-controllers/index");
 
-     userRoute.get("/notification",auth,getNotification);
-     userRoute.post("/notification", auth,createNotification);
-     userRoute.post("/complaint",auth, createComplaint);
-     userRoute.post("/feedback",auth, createFeedback);
-     userRoute.get("/service-category", auth,getServices);
-     userRoute.get("/subcategory/:service_category_id",auth,getSubCategory);
-     userRoute.post("/login",customerLogin);
-     userRoute.put("/profilesetting",auth,profileSetting)
+    customerRoute.get("/notification",auth,getNotification);
+    customerRoute.post("/notification", auth,createNotification);
+    customerRoute.post("/complaint",auth, createComplaint);
+    customerRoute.post("/feedback",auth, createFeedback);
+    customerRoute.get("/service-category", auth,getServices);
+    customerRoute.get("/subcategory/:service_category_id",auth,getSubCategory);
+    customerRoute.post("/login",customerLogin);
+    customerRoute.put("/settings",auth,profileSetting);
+    customerRoute.get("/complete",auth,completedTasks)
 
-module.exports = { userRoute };
+module.exports = { customerRoute };
