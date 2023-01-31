@@ -42,10 +42,21 @@ const createComplaint = (req, res) => {
     })
   };
 
+  const completedTasks=(req,res)=>{
+    const {customer_id} = req.user
+    pool.query(`SELECT service_category_name,sub_category_name from emp_customer_services
+    JOIN service_category ON emp_customer_services.service_category_id=service_category.service_category_id 
+    JOIN sub_category ON emp_customer_services.sub_category_id=sub_category.sub_category_id
+    WHERE customer_id=${customer_id} AND service_status='complete'`, (error, result) => {
+        if (error) throw error
+        res.status(200).json("completed Task")
+      }) 
+  }
+
   const profileSetting=  (req,res)=>{
     const {customer_id} = req.user
     const {customer_phone,customer_name,customer_password,customer_language,customer_city} = req.body
-    pool.query(`update customer set customer_phone = ${customer_phone},  customer_name ='${customer_name}',  customer_password = '${customer_password}',customer_language = '${customer_language}',customer_city ='${customer_city}' where customer_id = ${customer_id}`, (error,result) => {
+    pool.query(`UPDATE customer set customer_phone = ${customer_phone},  customer_name ='${customer_name}',  customer_password = '${customer_password}',customer_language = '${customer_language}',customer_city ='${customer_city}' where customer_id = ${customer_id}`, (error,result) => {
       if (error) throw error
     res.status(200).json("update setting")
     })
@@ -72,12 +83,16 @@ const getSubCategory = (req, res) => {
   )
 }
 
+
 const customerLogin = (req,res)=>{
   const{ customer_phone,customer_password } = req.body
+  console.log(customer_phone,customer_password);
   pool.query(`SELECT * FROM customer WHERE customer_phone = ${customer_phone} AND customer_password = '${customer_password}'`,
   (error,result)=>{
+    console.log(result.rows);
       const [ userData ] = result.rows
-      if(userData == ''){
+    
+      if(userData === undefined){
           res.status(400).json("Invalid Phone or password")
       }
       else if(error) throw error
@@ -94,6 +109,6 @@ module.exports = {
       getServices,
       getSubCategory,
       profileSetting,
-      customerLogin
-      
+      customerLogin,
+      completedTasks
      };
