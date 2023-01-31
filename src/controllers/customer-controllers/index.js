@@ -74,10 +74,13 @@ const getSubCategory = (req, res) => {
 
 const customerLogin = (req,res)=>{
   const{ customer_phone,customer_password } = req.body
+  console.log(customer_phone,customer_password);
   pool.query(`SELECT * FROM customer WHERE customer_phone = ${customer_phone} AND customer_password = '${customer_password}'`,
   (error,result)=>{
+    console.log(result.rows);
       const [ userData ] = result.rows
-      if(userData == ''){
+    
+      if(userData === undefined){
           res.status(400).json("Invalid Phone or password")
       }
       else if(error) throw error
