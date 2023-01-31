@@ -1,15 +1,17 @@
 const express = require('express')
-const route = express.Router()
-const {employeeSignuphandler ,customerSignuphandler,customerLoginhandler,employeeLoginhandler} = require('../../controllers/user-controllers/user-controllers')
+const userRoute = express.Router()
+const {employeeSignuphandler ,customerSignuphandler,customerLoginhandler,employeeLoginhandler,adminLoginhandler} = require('../../controllers/user-coontrollers/user-controllers')
 
-const auth = require('../../middleware/auth/auth')
+// const auth = require('../../middleware/auth/auth')
 
 
-route.post("/employee/Sign-up",employeeSignuphandler)
-route.post("/customer/Sign-up", customerSignuphandler)
+userRoute.post("/employee/sign-up",employeeSignuphandler)
+userRoute.post("/customer/sign-up", customerSignuphandler)
 
-route.post("/customer/log-in", customerLoginhandler)
-route.post("/employee/log-in",employeeLoginhandler)
+userRoute.post("/customer/log-in", customerLoginhandler)
+userRoute.post("/employee/log-in",employeeLoginhandler)
 
-module.exports = route
+
+
+module.exports = userRoute
 

@@ -1,11 +1,10 @@
-const pool = require('../../../../Hire-Me/src/connection/postgresql')
+const pool = require('../../connection/postgresql')
 const jwt = require('jsonwebtoken')
 const e = require('express')
 
 const employeeSignuphandler = (req, res) => {
     const {emp_phone,emp_name,emp_password,emp_language,emp_city}= req.body
-    pool.query(`INSERT INTO employee(emp_phone,emp_name,emp_password,emp_language,emp_city) VALUES(${emp_phone},'${emp_name}','${emp_password}','${emp_language}','${emp_city}') `, (error, result) => {
-
+    pool.query(`INSERT INTO employee(emp_phone,emp_name,emp_password,emp_language,emp_city) VALUES(${emp_phone},'${emp_name}','${emp_password}','${emp_language}','${emp_city}')`, (error, result) => {
         if (error)  throw error 
         res.status(200).json("employee Successfuly Sign-up ...!")
     })
@@ -67,5 +66,7 @@ const employeeLoginhandler=(req,res)=>{
     }
  
 }
+
+
 
 module.exports = {employeeSignuphandler,customerSignuphandler,customerLoginhandler,employeeLoginhandler}
