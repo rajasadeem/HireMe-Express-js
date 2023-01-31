@@ -1,7 +1,7 @@
 const express = require('express')
 require('dotenv').config()
 const cors = require('cors')
-const employeeRoutes = require('./routes/employee-routes')
+const employeeRoutes = require('./routes/employee-routes/employee-routes')
 
 const app = express()
 const { userRoute } = require("./routes/customer-routes/index");
