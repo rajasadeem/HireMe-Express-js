@@ -6,7 +6,6 @@ const auth = (req,res,next)=>{
     jwt.verify(token,process.env.ACCESS_WEB_TOKEN,(error,user)=>{
         if(error) throw error
         req.user = user
-        console.log(user);
     })
     next()
 }

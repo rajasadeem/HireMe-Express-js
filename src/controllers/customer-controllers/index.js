@@ -1,4 +1,4 @@
-const { pool } = require("../../connection/postgresql");
+const pool = require("../../connection/postgresql");
 const JWT = require('jsonwebtoken')
 
 const getNotification = (req, res) => {
