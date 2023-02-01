@@ -21,7 +21,7 @@ employeeRoutes.post("/notifications",auth,createEmployeeNotification)
 employeeRoutes.post("/complaint", auth, createComplaint)
 
 employeeRoutes.get("/service-category",auth,getServiceCategory)
-employeeRoutes.get("/subcategory/:service_id", getSubCategory)
+employeeRoutes.get("/subcategory", getSubCategory)
 
 employeeRoutes.post("/service",auth,addEmpServices)
 employeeRoutes.get("/service",auth,getEmpServices)
