@@ -8,7 +8,7 @@ adminRoute.get("/complaints/employee",adminComplaintHandlerEmp )
 adminRoute.get("/complaints/customer",adminComplaintHandlerCustomer)
 adminRoute.get('/get-employees',adminGetAllEmployeeaHandler)
 adminRoute.get('/get-customers',adminGetAllCustomerHandler)
-adminRoute.get("/sub-category/:service_category_id",adminGetSubCategory)
+adminRoute.get("/sub-category",adminGetSubCategory)
 adminRoute.get('/services',adminGetserviceCategory)
 
 adminRoute.post("/add-service-category",adminAddServiceCategory)
