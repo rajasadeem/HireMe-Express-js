@@ -13,7 +13,7 @@ const employeeSignuphandler = (req, res) => {
 const customerSignuphandler = (req, res) => {
     const {customer_phone,customer_name,customer_password,customer_language,customer_city}= req.body
     
-    pool.query(`INSERT INTO employee(emp_phone,emp_name,emp_password,emp_language,emp_city) VALUES(${customer_phone},'${customer_name}','${customer_password}','${customer_language}','${customer_city}') `, (error, result) => {
+    pool.query(`INSERT INTO customer(customer_phone,customer_name,customer_password,customer_language,customer_city) VALUES(${customer_phone},'${customer_name}','${customer_password}','${customer_language}','${customer_city}') `, (error, result) => {
             if (error)  throw error 
         res.status(200).json("Customer Successfuly Sign-up ...!")
     })

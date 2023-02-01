@@ -3,15 +3,17 @@ const jwt = require ('jsonwebtoken')
 
 
 const adminLoginhandler=(req,res)=>{
-    const {admin_phone , admin_password } = req.body
+    const {user_phone , user_password } = req.body
+    console.log(req.body)
     try{
-    pool.query(`SELECT * FROM admin_panel WHERE admin_phone = ${admin_phone} AND
-    admin_password = '${admin_password}'`, (error,result)=>{
+    pool.query(`SELECT * FROM admin_panel WHERE user_phone = '${user_phone}' AND
+    user_password = '${user_password}'`, (error,result)=>{
+
         if(result.rows.length>0){
             const user = result.rows
             const [userData] = user;
             //console.log(userData);
-            const accessToken = (jwt.sign(userData,process.env.Access_web_token))
+            const accessToken = (jwt.sign(userData,process.env.ACCESS_WEB_TOKEN))
             res.status(200).json({accessToken,user})
         }
         else{
@@ -24,7 +26,6 @@ const adminLoginhandler=(req,res)=>{
     }
  
 }
-
 
 const adminComplaintHandlerEmp=(req,res)=>{
     pool.query(`SELECT complaint_description,emp_name FROM complaint
@@ -58,7 +59,7 @@ const adminGetAllCustomerHandler=(req,res)=>{
 
 const adminGetSubCategory=(req,res)=>{
     const {service_category_id} = req.body
-    pool.query(`SELECT sub_category_name FROM sub_category WHERE 
+    pool.query(`SELECT sub_category_name , sub_category_id FROM sub_category WHERE 
     service_category_id= ${service_category_id}`,(error,result)=>{
         if(error) throw error
         res.status(200).json(result.rows)
@@ -97,6 +98,7 @@ const adminDeleteCategoryHandler = (req,res)=>{
         res.status(200).json("service category deleted")
     })
 }
+
 const adminDeleteSubCategoryHandler = (req,res)=>{
     const {sub_category_id} = req.body
     pool.query(`DELETE FROM sub_category
@@ -114,6 +116,7 @@ const adminPostNotification = (req,res)=>{
         res.status(200).json("added")
     })
 }
+
 const adminGetNotification = (req,res)=>{
     pool.query(`SELECT * FROM admin_notifications`,(error,result)=>{
         if(error) throw error
@@ -122,15 +125,64 @@ const adminGetNotification = (req,res)=>{
 }
 
 const adminUpdateProfile = (req,res)=>{
-    const { admin_phone,admin_password} = req.body
-    pool.query(`UPDATE admin_panel SET admin_phone = ${admin_phone},
-    admin_password = '${admin_password}'`,(error,result)=>{
+    const { user_phone,user_password} = req.body
+    pool.query(`UPDATE admin_panel SET user_phone = ${user_phone},
+    user_password = '${user_password}'`,(error,result)=>{
         if(error) throw error
         res.status(200).json("updated")
     })
 }
 
+const userCreatedByAdmin=(req,res)=>{
+    const {user_phone,user_password,user_status } = req.body
+    pool.query(`INSERT INTO admin_panel (user_phone,user_password,user_status) 
+    VALUES(' ${user_phone}' ,'${user_password}','${user_status}')`,(error,result)=>{
+        if (error) throw error
+        res.status(200).send("User Succesfully Added By Admin")
+    })
+}
+
+const userDeletedbyAdmin=(req,res)=>{
+    const {user_status} = req.user
+    const {user_id} = req.body
+    if (user_status == 'Admin'){
+       pool.query(`DELETE FROM admin_panel WHERE user_id = ${user_id} `,(error,result)=>{
+        if (error) throw error
+        res.status(200).json("User Deleted Successfully")
+
+       }) 
+    }
+    else(
+        res.ststus(200).json("You are Not an Admin")
+    )
+  
+}
+
+const getAllAdminData=(req,res)=>{
+    pool.query(`SELECT * FROM admin_panel `,(error,result)=>{
+        if(error) throw error
+        res.status(200).json(result.rows)
+    } )
+}
+
+const userprofilUpdatebyadmin = (req,res)=>{
+    const {user_status} =req.user
+    if(user_status =="Admin"){
+    const { user_id,user_phone,user_password,user_status} = req.body
+    pool.query(`UPDATE admin_panel SET user_phone = '${user_phone}',
+    user_password = '${user_password}' , user_status= '${user_status}' WHERE 
+    user_id =${user_id}`,(error,result)=>{
+        if(error) throw error
+        res.status(200).json("User Profile updated")
+    }
+     )}
+
+    else{
+        res.status(200).json('you are not an Admin')
+    }
+    
+}
 
 
 
-module.exports ={adminLoginhandler,adminComplaintHandlerEmp,adminComplaintHandlerCustomer,adminGetAllEmployeeaHandler,adminGetAllCustomerHandler,adminGetSubCategory ,adminGetserviceCategory,adminAddServiceCategory,adminAddSubCategory,adminDeleteCategoryHandler,adminDeleteSubCategoryHandler,adminPostNotification,adminGetNotification,adminUpdateProfile}
+module.exports ={userprofilUpdatebyadmin,getAllAdminData,userDeletedbyAdmin,userCreatedByAdmin,adminLoginhandler,adminComplaintHandlerEmp,adminComplaintHandlerCustomer,adminGetAllEmployeeaHandler,adminGetAllCustomerHandler,adminGetSubCategory ,adminGetserviceCategory,adminAddServiceCategory,adminAddSubCategory,adminDeleteCategoryHandler,adminDeleteSubCategoryHandler,adminPostNotification,adminGetNotification,adminUpdateProfile}
