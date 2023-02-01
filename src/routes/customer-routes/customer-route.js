@@ -18,7 +18,7 @@ const {
     customerRoute.post("/complaint",auth, createComplaint);
     customerRoute.post("/feedback",auth, createFeedback);
     customerRoute.get("/service-category", auth,getServices);
-    customerRoute.get("/subcategory/:service_category_id",auth,getSubCategory);
+    customerRoute.get("/subcategory",auth,getSubCategory);
     customerRoute.put("/settings",auth,profileSetting);
     customerRoute.get("/complete",auth,completedTasks)
 
