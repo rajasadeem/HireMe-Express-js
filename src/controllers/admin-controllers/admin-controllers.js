@@ -57,7 +57,7 @@ const adminGetAllCustomerHandler=(req,res)=>{
 }
 
 const adminGetSubCategory=(req,res)=>{
-    const {service_category_id} = req.params
+    const {service_category_id} = req.body
     pool.query(`SELECT sub_category_name FROM sub_category WHERE 
     service_category_id= ${service_category_id}`,(error,result)=>{
         if(error) throw error
@@ -66,8 +66,7 @@ const adminGetSubCategory=(req,res)=>{
 }
 
 const adminGetserviceCategory=(req,res)=>{
-    const {service_category_id} = req.params
-    pool.query(`SELECT service_category_name FROM service_category ${service_category_id}`,(error,result)=>{
+    pool.query(`SELECT * FROM service_category `,(error,result)=>{
         if(error) throw error
         res.status(200).json(result.rows)
     })
