@@ -1,5 +1,6 @@
 const pool = require('../../connection/postgresql')
-const JWT = require('jsonwebtoken')
+
+const getNotificationOfEmp = require('../../repositories/employee-repo/employee-repo')
 
 const createEmployeeNotification = (req,res)=>{
     const  {emp_id} = req.user
@@ -15,7 +16,7 @@ const createEmployeeNotification = (req,res)=>{
 
 const getEmployeeNotifications = (req,res)=>{
     const {emp_id} = req.user
-    pool.query(`SELECT notification_content FROM notifications WHERE emp_id = ${emp_id}`,(error,result)=>{
+    pool.query(getNotificationOfEmp(emp_id),(error,result)=>{
         if(error){
             throw error
         }
