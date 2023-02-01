@@ -107,20 +107,16 @@ const completedServices = (req,res)=>{
     })
 }
 
-const empLogin = (req,res)=>{
-    const{ emp_phone,emp_password } = req.body
-    console.log(emp_phone,emp_password);
-    pool.query(`SELECT * FROM employee WHERE emp_phone = ${emp_phone} AND emp_password = '${emp_password}'`,
-    (error,result)=>{
-        const [ userData ] = result.rows
-        console.log(userData);
-        if(userData === undefined){
-            res.status(400).json("Invalid Phone or password")
-        }
-        else if(error) throw error
-        const jwtToken = JWT.sign(userData,process.env.ACCESS_WEB_TOKEN)
-        res.status(200).json(jwtToken)
-    })
-}
-
-module.exports = { getEmployeeNotifications, createEmployeeNotification, createComplaint, getServiceCategory, getSubCategory, addEmpServices, getEmpServices, getEmpFeedback, getEmpSettings, updateEmpSettings,completedServices, empLogin }
+module.exports = { 
+    getEmployeeNotifications,
+    createEmployeeNotification,
+    createComplaint,
+    getServiceCategory,
+    getSubCategory,
+    addEmpServices,
+    getEmpServices,
+    getEmpFeedback,
+    getEmpSettings,
+    updateEmpSettings,
+    completedServices,
+ }
