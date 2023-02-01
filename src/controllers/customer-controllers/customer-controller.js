@@ -72,7 +72,7 @@ const getServices = (req, res) => {
 };
 
 const getSubCategory = (req, res) => {
-  const {service_category_id } = req.params
+  const {service_category_id } = req.body
   pool.query(`SELECT * FROM sub_category WHERE service_category_id = ${service_category_id}`,
     (error, results) => {
       if (error) {
