@@ -20,16 +20,10 @@ const getComplaintOfCustomer = ()=>{
     ORDER BY complaint_id DESC`)
 }
 
-const getAllComplaint = ()=>{
-    return(`SELECT complaint_description,emp_name,customer_name FROM complaint 
-    JOIN employee ON complaint.emp_id = employee.emp_id
-    JOIN customer ON complaint.customer_id = customer.customer_id`)
-}
 
 module.exports = {
     postComplaintByEmp,
     postComplaintByCustomer,
     getComplaintOfEmp,
-    getComplaintOfCustomer,
-    getAllComplaint
+    getComplaintOfCustomer
 }
