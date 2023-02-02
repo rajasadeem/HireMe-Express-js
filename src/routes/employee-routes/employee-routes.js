@@ -3,8 +3,6 @@ const employeeRoutes = express.Router()
 const { getEmployeeNotifications,
     createEmployeeNotification,
     createComplaint,
-    getServiceCategory,
-    getSubCategory,
     addEmpServices,
     getEmpServices,
     getEmpFeedback,
@@ -19,9 +17,6 @@ employeeRoutes.get("/notifications", auth,getEmployeeNotifications)
 employeeRoutes.post("/notifications",auth,createEmployeeNotification)
 
 employeeRoutes.post("/complaint", auth, createComplaint)
-
-employeeRoutes.get("/service-category",auth,getServiceCategory)
-employeeRoutes.get("/subcategory", getSubCategory)
 
 employeeRoutes.post("/service",auth,addEmpServices)
 employeeRoutes.get("/service",auth,getEmpServices)
