@@ -9,4 +9,15 @@ const {
 serviceInfoRoutes.get("/service-category",auth,getServiceCategory)
 serviceInfoRoutes.get("/sub-category",auth,getSubCategory)
 
+
+
+
+
+
+
+
+
+
+
+
 module.exports = serviceInfoRoutes
