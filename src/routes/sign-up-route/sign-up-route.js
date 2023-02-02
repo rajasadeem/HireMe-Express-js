@@ -5,3 +5,4 @@ const userSignuphandler = require('../../controllers/sign-up-controller/sign-up-
 userSignUpRoute.post("/sign-up", userSignuphandler)
 
 module.exports = userSignUpRoute
+
