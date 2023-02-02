@@ -1,7 +1,10 @@
 const pool = require('../../connection/postgresql')
 const { 
     postComplaintByEmp,
-    postComplaintByCustomer
+    postComplaintByCustomer,
+    getComplaintOfEmp,
+    getComplaintOfCustomer,
+    getAllComplaint
  } = require('../../repositories/complaints/complaints')
 
  const postComplaint = (req,res)=>{
@@ -24,4 +27,32 @@ const {
     }
  }
 
- module.exports = {postComplaint}
+ const getComplaint = (req,res)=>{
+    const { complaint } =  req.body
+    if(complaint == "employee"){
+        pool.query(getComplaintOfEmp(),(error,result)=>{
+            if(error) throw error
+            res.status(200).json(result.rows)
+        })
+    }
+    else if(complaint == "customer"){
+        pool.query(getComplaintOfCustomer(),(error,result)=>{
+            if(error) throw error
+            res.status(200).json(result.rows)
+        })
+    }
+    else if(complaint == "All-Complaints"){
+        pool.query(getAllComplaint(),(error,result)=>{
+            if(error) throw error
+            res.status(200).json(result.rows)
+        })
+    }
+    else{
+        res.status(400).json("some error occurred")
+    }
+ }
+
+ module.exports = {
+    postComplaint,
+    getComplaint
+}
