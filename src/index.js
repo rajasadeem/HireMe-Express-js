@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config()
 const cors = require('cors')
 
+const userSignUpRoute = require('./routes/sign-up-route/sign-up-route')
 const serviceRoutes = require('./routes/service-info-routes/service-info-routes')
 const complaintRoute = require('./routes/complaint-routes/complaint-routes')
 const feedbackRoute = require('./routes/feedback-route/feedback-route')
@@ -14,6 +15,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+app.use("/user",userSignUpRoute)
 
 
 app.use("/service",serviceRoutes)
