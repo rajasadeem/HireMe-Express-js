@@ -5,10 +5,6 @@ const {
     signupHandlerForCustomer
 } = require('../../repositories/sign-up/sign-up')
 
-const e = require('express')
-
-
-
 const userSignuphandler = (req, res) => {
   
     if (req.body.customer_phone && req.body.customer_name && req.body.customer_password && req.body.customer_language && req.body.customer_city){
@@ -34,70 +30,6 @@ const userSignuphandler = (req, res) => {
     }
    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const customerLoginhandler = (req,res)=>{
-    const {customer_phone , customer_password } = req.body
-    try{
-    pool.query(`SELECT * FROM customer WHERE customer_phone = ${customer_phone} AND
-    customer_password = '${customer_password}'`, (error,result)=>{
-        if(result.rows.length>0){
-            const user = result.rows
-            const [userData] = user;
-            // console.log(userData);
-            const accessToken = (jwt.sign(userData,process.env.Access_web_token))
-            res.status(200).json({accessToken,user})
-        }
-        else{
-            res.json(" email or password in invaild")
-        }
-    })
-    }catch(error){
-        console.log(error)
-        res.status(500).json("server error")
-    }
-    
-   
-}
-
-const employeeLoginhandler=(req,res)=>{
-    const {emp_phone , emp_password } = req.body
-    try{
-    pool.query(`SELECT * FROM employee WHERE emp_phone = ${emp_phone} AND
-    emp_password = '${emp_password}'`, (error,result)=>{
-        if(result.rows.length>0){
-            const user = result.rows
-            const [userData] = user;
-            // console.log(userData);
-            const accessToken = (jwt.sign(userData,process.env.Access_web_token))
-            res.status(200).json({accessToken,user})
-        }
-        else{
-            res.json(" email or password in invaild")
-        }
-    })
-    }catch(error){
-        console.log(error)
-        res.status(500).json("server error")
-    }
- 
-}
-
 
 
 module.exports = userSignuphandler

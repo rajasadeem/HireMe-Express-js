@@ -1,11 +1,9 @@
 const express = require('express')
-const userRoute = express.Router()
+const userSignUpRoute = express.Router()
 const userSignuphandler = require('../../controllers/sign-up-controller/sign-up-controller')
 
-// const auth = require('../../middleware/auth/auth')
 
+userSignUpRoute.post("/sign-up", userSignuphandler)
 
-userRoute.post("/sign-up", userSignuphandler)
-
-module.exports = userRoute
+module.exports = userSignUpRoute
 
