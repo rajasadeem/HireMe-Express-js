@@ -1,23 +1,54 @@
 const pool = require('../../connection/postgresql')
 const jwt = require('jsonwebtoken')
+const {
+    signUpHandlerForEmp,
+    signupHandlerForCustomer
+} = require('../../repositories/sign-up/sign-up')
+
 const e = require('express')
 
-const employeeSignuphandler = (req, res) => {
-    const {emp_phone,emp_name,emp_password,emp_language,emp_city}= req.body
-    pool.query(`INSERT INTO employee(emp_phone,emp_name,emp_password,emp_language,emp_city) VALUES(${emp_phone},'${emp_name}','${emp_password}','${emp_language}','${emp_city}')`, (error, result) => {
+
+
+const userSignuphandler = (req, res) => {
+  
+    if (req.body.customer_phone && req.body.customer_name && req.body.customer_password && req.body.customer_language && req.body.customer_city){
+
+        const {customer_phone,customer_name,customer_password,customer_language,customer_city}= req.body
+        console.log(customer_name);
+        pool.query(signupHandlerForCustomer(customer_phone,customer_name,customer_password,customer_language,customer_city), (error, result) => {
+                if (error)  throw error 
+            res.status(200).json("Customer Successfuly Sign-up")
+        })
+    }
+
+    else if (req.body.emp_phone && req.body.emp_name && req.body.emp_password && req.body.emp_language && req.body.emp_city){
+        const {emp_phone,emp_name,emp_password,emp_language,emp_city}= req.body
+    pool.query( signUpHandlerForEmp(emp_phone,emp_name,emp_password,emp_language,emp_city), (error, result) => {
         if (error)  throw error 
         res.status(200).json("employee Successfuly Sign-up ...!")
     })
+    }
+
+    else {
+        res.status(401).json("Error")
+    }
+   
 }
 
-const customerSignuphandler = (req, res) => {
-    const {customer_phone,customer_name,customer_password,customer_language,customer_city}= req.body
-    
-    pool.query(`INSERT INTO customer(customer_phone,customer_name,customer_password,customer_language,customer_city) VALUES(${customer_phone},'${customer_name}','${customer_password}','${customer_language}','${customer_city}') `, (error, result) => {
-            if (error)  throw error 
-        res.status(200).json("Customer Successfuly Sign-up ...!")
-    })
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const customerLoginhandler = (req,res)=>{
@@ -69,4 +100,4 @@ const employeeLoginhandler=(req,res)=>{
 
 
 
-module.exports = {employeeSignuphandler,customerSignuphandler,customerLoginhandler,employeeLoginhandler}
+module.exports = {employeeSignuphandler,userSignuphandler,customerLoginhandler,employeeLoginhandler}
