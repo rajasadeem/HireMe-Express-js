@@ -20,7 +20,6 @@ app.use('/user',userSignUpRoute)
 app.use('/users',userLoginRoute)
 app.use('/admin',adminLoginRoute)
 
-
 app.use("/service",serviceRoutes)
 app.use("/complaint",complaintRoute)
 app.use("/feedback",feedbackRoute)
