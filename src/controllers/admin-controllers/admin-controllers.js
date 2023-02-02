@@ -2,30 +2,6 @@ const pool = require('../../connection/postgresql')
 const jwt = require ('jsonwebtoken')
 
 
-const adminLoginhandler=(req,res)=>{
-    const {user_phone , user_password } = req.body
-    console.log(req.body)
-    try{
-    pool.query(`SELECT * FROM admin_panel WHERE user_phone = '${user_phone}' AND
-    user_password = '${user_password}'`, (error,result)=>{
-
-        if(result.rows.length>0){
-            const user = result.rows
-            const [userData] = user;
-            //console.log(userData);
-            const accessToken = (jwt.sign(userData,process.env.ACCESS_WEB_TOKEN))
-            res.status(200).json({accessToken,user})
-        }
-        else{
-            res.json(" email or password in invaild")
-        }
-    })
-    }catch(error){
-        console.log(error)
-        res.status(500).json("server error")
-    }
- 
-}
 
 const adminComplaintHandlerEmp=(req,res)=>{
     pool.query(`SELECT complaint_description,emp_name FROM complaint
@@ -185,4 +161,4 @@ const userprofilUpdatebyadmin = (req,res)=>{
 
 
 
-module.exports ={userprofilUpdatebyadmin,getAllAdminData,userDeletedbyAdmin,userCreatedByAdmin,adminLoginhandler,adminComplaintHandlerEmp,adminComplaintHandlerCustomer,adminGetAllEmployeeaHandler,adminGetAllCustomerHandler,adminGetSubCategory ,adminGetserviceCategory,adminAddServiceCategory,adminAddSubCategory,adminDeleteCategoryHandler,adminDeleteSubCategoryHandler,adminPostNotification,adminGetNotification,adminUpdateProfile}
+module.exports ={userprofilUpdatebyadmin,getAllAdminData,userDeletedbyAdmin,userCreatedByAdmin,adminComplaintHandlerEmp,adminComplaintHandlerCustomer,adminGetAllEmployeeaHandler,adminGetAllCustomerHandler,adminGetSubCategory ,adminGetserviceCategory,adminAddServiceCategory,adminAddSubCategory,adminDeleteCategoryHandler,adminDeleteSubCategoryHandler,adminPostNotification,adminGetNotification,adminUpdateProfile}
