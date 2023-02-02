@@ -9,16 +9,16 @@ const {
 const postFeedback = (req,res)=>{
     if(req.user.emp_id){
         const {emp_id} = req.user
-        const { customer_feedback_content,customer_id } =req.body
-        pool.query(postCustomerFeedback(customer_feedback_content,customer_id,emp_id),(error,result)=>{
+        const { customer_feedback_content,customer_feedback_stars,customer_id } =req.body
+        pool.query(postCustomerFeedback(customer_feedback_content,customer_feedback_stars,customer_id,emp_id),(error,result)=>{
             if(error) throw error
             res.status(200).json("Feedback Posted")
         })
     }
     else if(req.user.customer_id){
         const {customer_id} = req.user
-        const { employee_feedback_content,emp_id} = req.body
-        pool.query(postEmpFeedback(employee_feedback_content,emp_id,customer_id),(error,result)=>{
+        const { employee_feedback_content,employee_feedback_stars,emp_id} = req.body
+        pool.query(postEmpFeedback(employee_feedback_content,employee_feedback_stars,emp_id,customer_id),(error,result)=>{
             if(error) throw error
             res.status(200).json("Feedback Inserted")
         })
