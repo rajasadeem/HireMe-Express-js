@@ -41,12 +41,6 @@ const {
             res.status(200).json(result.rows)
         })
     }
-    else if(complaint == "All-Complaints"){
-        pool.query(getAllComplaint(),(error,result)=>{
-            if(error) throw error
-            res.status(200).json(result.rows)
-        })
-    }
     else{
         res.status(400).json("some error occurred")
     }
