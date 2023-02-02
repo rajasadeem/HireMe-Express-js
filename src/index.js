@@ -16,7 +16,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use("/user",userSignUpRoute)
+app.use('/user',userSignUpRoute)
 app.use('/users',userLoginRoute)
 app.use('/admin',adminLoginRoute)
 
