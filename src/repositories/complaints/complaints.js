@@ -20,6 +20,7 @@ const getComplaintOfCustomer = ()=>{
     ORDER BY complaint_id DESC`)
 }
 
+
 module.exports = {
     postComplaintByEmp,
     postComplaintByCustomer,
