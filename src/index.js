@@ -1,6 +1,7 @@
 const express = require('express')
 require('dotenv').config()
 const cors = require('cors')
+
 const userSignUpRoute = require('./routes/sign-up-route/sign-up-route')
 const adminLoginRoute = require ('./routes/admin-login-route/admin-login-route')
 const serviceInfoRoutes = require('./routes/service-info-routes/service-info-routes')
@@ -9,7 +10,7 @@ const feedbackRoute = require('./routes/feedback-route/feedback-route')
 const notificationRoute = require('./routes/notifications-route/notifications-route')
 const settingsRoute = require('./routes/settings-route/settings-route')
 const serviceDetailRoute = require('./routes/service-detail-route/service-detail-route')
-const  userLoginRoute = require ('./routes/log-in-route/log-in-route')
+const userLoginRoute = require ('./routes/log-in-route/log-in-route')
 const getDeleteUser = require('./routes/get-delete-user-routes/get-delete-user-routes')
 
 const app = express()
