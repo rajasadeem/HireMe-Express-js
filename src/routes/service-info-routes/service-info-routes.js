@@ -12,12 +12,4 @@ serviceInfoRoutes.get("/sub-category",auth,getSubCategory)
 
 
 
-
-
-
-
-
-
-
-
 module.exports = serviceInfoRoutes
