@@ -1,11 +1,10 @@
 const express = require('express')
 require('dotenv').config()
 const cors = require('cors')
-const employeeRoutes = require('./routes/employee-routes/employee-routes')
+
 const userRoute = require('./routes/sign-up-route/sign-up-route')
 const adminRoute = require ('./routes/admin-routes/admin-routes')
-const customerRoute = require("./routes/customer-routes/customer-route");
-const serviceRoutes = require('./routes/service-infi-routes/service-info-routes')
+const serviceRoutes = require('./routes/service-info-routes/service-info-routes')
 const complaintRoute = require('./routes/complaint-routes/complaint-routes')
 const feedbackRoute = require('./routes/feedback-route/feedback-route')
 const notificationRoute = require('./routes/notifications-route/notifications-route')
@@ -18,8 +17,6 @@ app.use(cors())
 app.use(express.json())
 
 app.use('/user',userRoute)
-app.use("/customer", customerRoute);
-app.use("/employee",employeeRoutes)
 app.use('/admin',adminRoute)
 
 app.use("/service",serviceRoutes)

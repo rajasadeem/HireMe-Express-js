@@ -100,4 +100,4 @@ const employeeLoginhandler=(req,res)=>{
 
 
 
-module.exports = {employeeSignuphandler,userSignuphandler,customerLoginhandler,employeeLoginhandler}
+module.exports = userSignuphandler
