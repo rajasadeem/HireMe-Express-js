@@ -19,9 +19,21 @@ const getCustomerFeedback = (customer_id)=>{
     JOIN employee ON customer_feedback.emp_id = employee.emp_id WHERE customer_id = ${customer_id}`)
 }
 
+const getAvgRatingOfEmp = (emp_id)=>{
+    return(`SELECT AVG(employee_feedback_stars) FROM employee_feedback WHERE emp_id = ${emp_id}
+    GROUP BY emp_id`)
+}
+
+const getAvgRatingOfCustomer = (customer_id)=>{
+    return(`SELECT AVG(customer_feedback_stars) FROM customer_feedback WHERE customer_id = ${customer_id}
+    GROUP BY customer_id`)
+}
+
 module.exports = {
     postEmpFeedback,
     postCustomerFeedback,
     getEmpFeedback,
-    getCustomerFeedback
+    getCustomerFeedback,
+    getAvgRatingOfEmp,
+    getAvgRatingOfCustomer
 }

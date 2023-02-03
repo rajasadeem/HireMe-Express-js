@@ -2,7 +2,6 @@ const express = require('express')
 require('dotenv').config()
 const cors = require('cors')
 
-
 const userSignUpRoute = require('./routes/sign-up-route/sign-up-route')
 const adminLoginRoute = require ('./routes/admin-login-route/admin-login-route')
 const serviceInfoRoutes = require('./routes/service-info-routes/service-info-routes')
@@ -13,10 +12,9 @@ const settingsRoute = require('./routes/settings-route/settings-route')
 const serviceDetailRoute = require('./routes/service-detail-route/service-detail-route')
 const userLoginRoute = require ('./routes/log-in-route/log-in-route')
 const getDeleteUser = require('./routes/get-delete-user-routes/get-delete-user-routes')
-
-const  userLoginRoute = require ('./routes/log-in-route/log-in-route')
 const adminUpdateRoute = require('./routes/admin-update-setting-route/admin-update-setting-route')
 const adminCrudRoute = require ('./routes/admin-crud-route/admin-crud-route')
+
 const app = express()
 
 app.use(cors())
@@ -33,7 +31,7 @@ app.use("/settings",settingsRoute)
 app.use("/service-detail",serviceDetailRoute)
 app.use("/admin",adminUpdateRoute)
 app.use("/co-admin",adminCrudRoute)
-
+app.use("/get-delete-user",getDeleteUser)
 
 app.listen(process.env.DEV_PORT,()=>{
     console.log(`Running on port ${process.env.DEV_PORT}`);
