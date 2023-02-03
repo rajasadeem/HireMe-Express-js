@@ -3,7 +3,9 @@ const {
     postEmpFeedback,
     postCustomerFeedback,
     getEmpFeedback,
-    getCustomerFeedback
+    getCustomerFeedback,
+    getAvgRatingOfEmp,
+    getAvgRatingOfCustomer
 } = require('../../repositories/feedback/feedback')
 
 const postFeedback = (req,res)=>{
@@ -48,8 +50,29 @@ const getFeedback = (req,res)=>{
     } 
 }
 
+const getAvgRating = (req,res)=>{
+    if(req.user.emp_id){
+        const {emp_id} = req.user
+        pool.query(getAvgRatingOfEmp(emp_id),(error,result)=>{
+            if(error) throw error
+            res.status(200).json(result.rows)
+        }) 
+    }
+    else if(req.user.customer_id){
+        const {customer_id} = req.user
+        pool.query(getAvgRatingOfCustomer(customer_id),(error,result)=>{
+            if(error) throw error
+            res.status(200).json(result.rows)
+        })
+    }
+    else{
+        res.status(400).json("Cannot get rating")
+    }
+}
+
 
 module.exports = {
     postFeedback,
-    getFeedback
+    getFeedback,
+    getAvgRating
 }
