@@ -17,7 +17,8 @@ const getServiceCategory = (req,res)=>{
 }
 
 const getSubCategory = (req,res)=>{
-    const {service_category_id} = req.body
+    const {service_category_id} = req.params
+    console.log('service',service_category_id)
     pool.query(subCategory(service_category_id),(error,result)=>{
         if(error) throw error
         res.status(200).json(result.rows)

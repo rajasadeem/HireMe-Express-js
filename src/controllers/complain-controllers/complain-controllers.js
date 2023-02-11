@@ -10,7 +10,9 @@ const {
  const postComplaint = (req,res)=>{
     if(req.user.emp_id){
         const { emp_id } =req.user
+        console.log(emp_id);
         const {complaint_description} = req.body
+        console.log(complaint_description);
         pool.query(postComplaintByEmp(complaint_description,emp_id),(error,result)=>{
             if(error) throw error
             res.status(200).json("Complaint sent successfully")
@@ -28,7 +30,7 @@ const {
  }
 
  const getComplaint = (req,res)=>{
-    const { complaint } =  req.body
+    const { complaint } =  req.query
     if(complaint == "employee"){
         pool.query(getComplaintOfEmp(),(error,result)=>{
             if(error) throw error
