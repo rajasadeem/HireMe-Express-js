@@ -5,10 +5,12 @@ const auth = require('../../middlewares/auth/auth')
 
 const {
     addCustomerRequest,
-    getCustomerRequest
+    getCustomerRequest,
+    deleteCustomerRequest
 } = require('../../controllers/requests-controller/request-controller')
 
 requestRoute.post("/request",auth,addCustomerRequest)
 requestRoute.get("/request",auth,getCustomerRequest)
+requestRoute.delete("/request",auth,deleteCustomerRequest)
 
 module.exports = requestRoute

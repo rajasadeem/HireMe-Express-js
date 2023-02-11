@@ -11,7 +11,7 @@ const {
 } = require('../../controllers/service-info-controllers/service-info-controllers')
 
 serviceInfoRoutes.get("/service-category",auth,getServiceCategory)
-serviceInfoRoutes.get("/sub-category",auth,getSubCategory)
+serviceInfoRoutes.get("/sub-category/:service_category_id",auth,getSubCategory)
 serviceInfoRoutes.post('/service-category',auth,adminAddServiceCategory)
 serviceInfoRoutes.delete('/service-category',adminDeleteCategoryHandler)
 serviceInfoRoutes.post('/sub-category',auth,adminAddSubCategory)

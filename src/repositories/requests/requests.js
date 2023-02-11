@@ -4,7 +4,7 @@ const postRequest = (service_category_id,sub_category_id,customer_city,latitude,
     ${longitude},${customer_id})`)
 }
 
-const  getRequest = ()=>{
+const getRequest = ()=>{
     return(`SELECT * FROM requests`)
 }
 
