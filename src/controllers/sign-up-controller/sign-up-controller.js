@@ -10,7 +10,6 @@ const userSignuphandler = (req, res) => {
     if (req.body.customer_phone && req.body.customer_name && req.body.customer_password && req.body.customer_language && req.body.customer_city){
 
         const {customer_phone,customer_name,customer_password,customer_language,customer_city}= req.body
-        console.log(customer_name);
         pool.query(signupHandlerForCustomer(customer_phone,customer_name,customer_password,customer_language,customer_city), (error, result) => {
                 if (error)  throw error 
             res.status(200).json("Customer Successfuly Sign-up")
