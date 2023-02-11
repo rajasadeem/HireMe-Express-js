@@ -14,15 +14,18 @@ const postAdminNotifications = (notification_content,admin_id)=>{
 }
 
 const getEmpNotifications =(emp_id)=>{
-    return(`SELECT notification_id,notification_content FROM notifications WHERE emp_id = ${emp_id}`)
+    return(`SELECT notification_id,notification_content FROM notifications WHERE emp_id = ${emp_id}
+    ORDER BY notification_id DESC`)
 }
 
 const getCustomerNotifications = (customer_id)=>{
-    return(`SELECT notification_id,notification_content FROM notifications WHERE customer_id  =${customer_id}`)
+    return(`SELECT notification_id,notification_content FROM notifications WHERE customer_id  =${customer_id}
+    ORDER BY notification_id DESC`)
 }
 
 const getAdminNotifications = (admin_id)=>{
-    return(`SELECT notification_id,notification_content FROM notifications WHERE admin_id = ${admin_id}`)
+    return(`SELECT notification_id,notification_content FROM notifications WHERE admin_id = ${admin_id}
+    ORDER BY notification_id DESC`)
 }
 
 module.exports = {
