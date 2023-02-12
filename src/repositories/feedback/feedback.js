@@ -20,13 +20,17 @@ const getCustomerFeedback = (customer_id)=>{
 }
 
 const getAvgRatingOfEmp = (emp_id)=>{
-    return(`SELECT AVG(employee_feedback_stars) FROM employee_feedback WHERE emp_id = ${emp_id}
-    GROUP BY emp_id`)
+    return(`SELECT AVG(employee_feedback_stars),emp_name FROM employee_feedback
+    JOIN employee ON employee_feedback.emp_id = employee.emp_id
+    WHERE employee_feedback.emp_id = ${emp_id}
+    GROUP BY employee.emp_name`)
 }
 
 const getAvgRatingOfCustomer = (customer_id)=>{
-    return(`SELECT AVG(customer_feedback_stars) FROM customer_feedback WHERE customer_id = ${customer_id}
-    GROUP BY customer_id`)
+    return(`SELECT AVG(customer_feedback_stars),customer_name FROM customer_feedback
+    JOIN customer ON customer_feedback.customer_id = customer.customer_id
+    WHERE customer_feedback.customer_id = ${customer_id}
+    GROUP BY customer.customer_name`)
 }
 
 module.exports = {
