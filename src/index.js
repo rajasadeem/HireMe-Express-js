@@ -16,6 +16,7 @@ const adminUpdateRoute = require('./routes/admin-update-setting-route/admin-upda
 const adminCrudRoute = require ('./routes/admin-crud-route/admin-crud-route')
 const requestRoute = require('./routes/request-route/request-route')
 const empServiceRoute = require('./routes/emp-service-route/emp-service-route')
+const matchEmpRoute = require('./routes/match-emp-route/match-emp-route')
 
 const app = express()
 
@@ -36,6 +37,7 @@ app.use("/co-admin",adminCrudRoute)
 app.use("/get-delete-user",getDeleteUser)
 app.use("/request",requestRoute)
 app.use("/emp-service",empServiceRoute)
+app.use("/match-emp",matchEmpRoute)
 
 app.listen(process.env.DEV_PORT,()=>{
     console.log(`Running on port ${process.env.DEV_PORT}`);
