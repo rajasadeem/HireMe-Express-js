@@ -1,6 +1,6 @@
 const pool = require ('../../connection/postgresql')
 const jwt = require('jsonwebtoken')
-
+const bcrypt = require('bcrypt')
 const {
     logInHandlerEmp,
     logInHandlerCustomer
@@ -13,12 +13,23 @@ const userLoginHandler = (req,res)=>{
 
     const {customer_phone , customer_password } = req.body
     try{
-    pool.query(logInHandlerCustomer(customer_phone , customer_password), (error,result)=>{
-         if(result.rows.length>0){
+    pool.query(logInHandlerCustomer(customer_phone), (error,result)=>{
+        if(result.rows.length>0){
             const user = result.rows
-            const [userData] = user;
-            const accessToken = (jwt.sign(userData,process.env.ACCESS_WEB_TOKEN))
-            res.status(200).json({accessToken,user})
+            if(!user){
+                res.send('No user found')
+            }else{
+                console.log('user',user)
+                bcrypt.compare(customer_password, user[0].customer_password)
+                .then(()=>{ 
+                    const [userData] = user;
+                    const accessToken = (jwt.sign(userData,process.env.ACCESS_WEB_TOKEN))
+                    res.status(200).json({accessToken,user})
+                    res.send('success')
+                })
+                .catch((dbError)=>{console.log(dbError)})
+                
+            }
         }
         else{
             res.json(" email or password in invaild")
@@ -27,19 +38,32 @@ const userLoginHandler = (req,res)=>{
     }catch(error){
         console.log(error)
         res.status(500).json("server error")
-    }   
-}
+    }
+ 
+} 
+
 
 else if(req.body.emp_phone && req.body.emp_password){
     
         const {emp_phone , emp_password } = req.body
         try{
-        pool.query(logInHandlerEmp(emp_phone , emp_password), (error,result)=>{
+        pool.query(logInHandlerEmp(emp_phone), (error,result)=>{
             if(result.rows.length>0){
                 const user = result.rows
-                const [userData] = user;
-                const accessToken = (jwt.sign(userData,process.env.ACCESS_WEB_TOKEN))
-                res.status(200).json({accessToken,user})
+                if(!user){
+                    res.send('No user found')
+                }else{
+                    console.log('user',user)
+                    bcrypt.compare(emp_password, user[0].emp_password)
+                    .then(()=>{ 
+                        const [userData] = user;
+                        const accessToken = (jwt.sign(userData,process.env.ACCESS_WEB_TOKEN))
+                        res.status(200).json({accessToken,user})
+                        res.send('success')
+                    })
+                    .catch((dbError)=>{console.log(dbError)})
+                    
+                }
             }
             else{
                 res.json(" email or password in invaild")
