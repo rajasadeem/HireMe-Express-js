@@ -35,12 +35,6 @@ const userSignuphandler = (req, res) => {
             })
         })
     }
-        
-        // pool.query(signUpHandlerForEmp(emp_phone, emp_name, emp_password, emp_language, emp_city), (error, result) => {
-        //     if (error) throw error
-        //     res.status(200).json("employee Successfuly Sign-up ...!")
-        // })
-    
 
     else {
         res.status(401).json("Error")

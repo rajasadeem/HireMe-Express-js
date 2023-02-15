@@ -13,7 +13,7 @@ const userLoginHandler = (req,res)=>{
 
     const {customer_phone , customer_password } = req.body
     try{
-    pool.query(logInHandlerEmp(customer_phone), (error,result)=>{
+    pool.query(logInHandlerCustomer(customer_phone), (error,result)=>{
         if(result.rows.length>0){
             const user = result.rows
             if(!user){
