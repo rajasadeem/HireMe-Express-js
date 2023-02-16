@@ -15,7 +15,7 @@ const userSignuphandler = (req, res) => {
             bcrypt.hash(customer_password, salt, function(error, hash){
                 console.log('passwordhash',hash)
                 pool.query(signupHandlerForCustomer(customer_phone, customer_name, hash, customer_language, customer_city), (error, result) => {
-                    if (error) throw error
+                    if (error) res.status(400).json("Some error occurred, Please Refresh")
                     res.status(200).json("Customer Successfuly Sign-up")
                 })
             })
@@ -29,7 +29,7 @@ const userSignuphandler = (req, res) => {
             bcrypt.hash(emp_password, salt, function(error, hash){
                 console.log('passwordhash',hash)
                 pool.query(signUpHandlerForEmp(emp_phone, emp_name, hash, emp_language, emp_city), (error, result) => {
-                    if (error) throw error
+                    if (error) res.status(400).json("Some error occurred, Please Refresh")
                     res.status(200).json("Employee Successfuly Sign-up")
                 })
             })

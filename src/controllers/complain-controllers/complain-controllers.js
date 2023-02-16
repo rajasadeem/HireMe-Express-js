@@ -10,11 +10,9 @@ const {
  const postComplaint = (req,res)=>{
     if(req.user.emp_id){
         const { emp_id } =req.user
-        console.log(emp_id);
         const {complaint_description} = req.body
-        console.log(complaint_description);
         pool.query(postComplaintByEmp(complaint_description,emp_id),(error,result)=>{
-            if(error) throw error
+            if(error) res.status(400).json("Some error occurred, Please Refresh")
             res.status(200).json("Complaint sent successfully")
         })
     }
@@ -22,7 +20,7 @@ const {
         const { customer_id } =req.user
         const {complaint_description} = req.body
         pool.query(postComplaintByCustomer(complaint_description,customer_id),(error,result)=>{
-            if(error) throw error
+            if(error) res.status(400).json("Some error occurred, Please Refresh")
             res.status(200).json("Complaint sent successfully")
         })
         
@@ -33,13 +31,13 @@ const {
     const { complaint } =  req.query
     if(complaint == "employee"){
         pool.query(getComplaintOfEmp(),(error,result)=>{
-            if(error) throw error
+            if(error) res.status(400).json("Some error occurred, Please Refresh")
             res.status(200).json(result.rows)
         })
     }
     else if(complaint == "customer"){
         pool.query(getComplaintOfCustomer(),(error,result)=>{
-            if(error) throw error
+            if(error) res.status(400).json("Some error occurred, Please Refresh")
             res.status(200).json(result.rows)
         })
     }
