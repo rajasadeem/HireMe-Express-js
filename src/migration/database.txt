@@ -1,0 +1,87 @@
+CREATE TABLE employee(
+	emp_id BIGSERIAL PRIMARY KEY,
+	emp_phone BIGINT,
+	emp_name VARCHAR(50),
+	emp_password VARCHAR(255),
+	emp_language VARCHAR,
+	emp_city VARCHAR
+)
+CREATE TABLE customer(
+	customer_id BIGSERIAL PRIMARY KEY,
+	customer_phone BIGINT,
+	customer_name VARCHAR(50),
+	customer_password VARCHAR(255),
+	customer_language VARCHAR,
+	customer_city VARCHAR
+)
+CREATE TABLE admin_panel(
+	admin_id BIGSERIAL PRIMARY KEY,
+	admin_phone BIGINT,
+	admin_password VARCHAR,
+	admin_status VARCHAR
+)
+CREATE TABLE service_category(
+	service_category_id BIGSERIAL PRIMARY KEY,
+	service_category_name VARCHAR
+)
+CREATE TABLE sub_category(
+	sub_category_id BIGSERIAL PRIMARY KEY,
+	sub_category_name VARCHAR,
+	service_category_id INT REFERENCES service_category(service_category_id)	
+)
+CREATE TABLE notifications(
+	notification_id BIGSERIAL PRIMARY KEY,
+	notification_content VARCHAR,
+	emp_id INT REFERENCES employee(emp_id),
+	customer_id INT REFERENCES customer(customer_id),
+	admin_id INT REFERENCES admin_panel(admin_id)
+)
+CREATE TABLE employee_feedback(
+	employee_feedback_id BIGSERIAL PRIMARY KEY,
+	employee_feedback_content VARCHAR,
+	employee_feedback_stars INT,
+	emp_id INT REFERENCES employee(emp_id),
+	customer_id INT REFERENCES customer(customer_id)
+)
+CREATE TABLE customer_feedback(
+	customer_feedback_id BIGSERIAL PRIMARY KEY,
+	customer_feedback_content VARCHAR,
+	customer_feedback_stars INT,
+	customer_id INT REFERENCES customer(customer_id),
+	emp_id INT REFERENCES employee(emp_id)
+)
+CREATE TABLE complaint(
+	complaint_id BIGSERIAL PRIMARY KEY,
+	complaint_description VARCHAR,
+	emp_id INT REFERENCES employee(emp_id),
+	customer_id INT REFERENCES customer(customer_id)
+)
+CREATE TABLE emp_customer_services(
+	emp_customer_services_id BIGSERIAL PRIMARY KEY,
+	emp_id INT REFERENCES employee(emp_id),
+	customer_id INT REFERENCES customer(customer_id),
+	service_category_id INT REFERENCES service_category(service_category_id),
+	sub_category_id INT REFERENCES sub_category(sub_category_id),
+	service_status VARCHAR,
+	service_time VARCHAR
+)
+CREATE TABLE emp_services(
+	emp_services_id BIGSERIAL PRIMARY KEY,
+	emp_id INT REFERENCES employee(emp_id),
+	service_category_id INT REFERENCES service_category(service_category_id),
+	sub_category_id INT REFERENCES sub_category(sub_category_id)	
+)
+CREATE TABLE requests(
+	request_id BIGSERIAL PRIMARY KEY,
+	service_category_id INT REFERENCES service_category(service_category_id),
+	sub_category_id INT REFERENCES sub_category(sub_category_id),
+	customer_city VARCHAR,
+	latitude NUMERIC,
+	longitude NUMERIC,
+	customer_id INT REFERENCES customer(customer_id),
+	emp_id INT REFERENCES employee(emp_id)
+)
+
+
+
+
